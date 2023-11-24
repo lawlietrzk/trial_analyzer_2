@@ -11,7 +11,8 @@ EXPOSE 8501
 
 WORKDIR /app
 
+# For running on Heroku
 CMD streamlit run app.py --server.port $PORT
 
-# For running locally
+# For running locally, comment the line above and uncomment the line below
 # CMD streamlit run app.py
