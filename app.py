@@ -4,6 +4,7 @@ import spacy
 nltk.download('stopwords')
 spacy.load('en_core_web_sm')
 
+from pdf2image import convert_from_path
 import pandas as pd
 import base64, random
 import time, datetime
@@ -39,13 +40,44 @@ def pdf_reader(file):
     fake_file_handle.close()
     return text
 
+def generate_random_string(length=100):
+    import random
+    import string
+    return "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
+
 
 def show_pdf(file_path):
     with open(file_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    # pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+
+    # Replace 'your_pdf_file.pdf' with the actual PDF filename
+    pdf_path = file_path
+
+    # Convert PDF pages to JPEG images
+    images = convert_from_path(pdf_path)
+
+    total_height = sum(img.height for img in images)
+    max_width = max(img.width for img in images)
+    merged_image = Image.new('RGB', (max_width, total_height))
+
+    y_offset = 0
+    for img in images:
+        merged_image.paste(img, (0, y_offset))
+        y_offset += img.height
+
+    with st.expander('', expanded = True):
+        st.image(merged_image)
+
+    css='''
+    <style>
+        [data-testid="stExpander"] div:has(>.streamlit-expanderContent) {
+            overflow: scroll;
+            height: 400px;
+        }
+    </style>
+    '''
+
+    st.markdown(css, unsafe_allow_html=True)
 
 
 def course_recommender(course_list):

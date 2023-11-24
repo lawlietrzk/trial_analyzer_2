@@ -1,6 +1,13 @@
 FROM python:3.10.8-slim
 
-# Install dependencies:
+# Install necessary system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        poppler-utils \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 RUN python -m spacy download en_core_web_sm
