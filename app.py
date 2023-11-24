@@ -78,6 +78,7 @@ def run():
         with open(save_image_path, "wb") as f:
             f.write(pdf_file.getbuffer())
         show_pdf(save_image_path)
+        
         resume_data = ResumeParser(save_image_path)
         resume_data = resume_data.get_extracted_data()
         if resume_data:

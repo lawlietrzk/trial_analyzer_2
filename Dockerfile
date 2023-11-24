@@ -1,8 +1,4 @@
-FROM python:3.10.0-slim
-
-# ENV VIRTUAL_ENV=/opt/venv
-# RUN python3 -m venv $VIRTUAL_ENV
-# ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+FROM python:3.10.8-slim
 
 # Install dependencies:
 COPY requirements.txt .
@@ -15,7 +11,7 @@ EXPOSE 8501
 
 WORKDIR /app
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+CMD streamlit run app.py --server.port $PORT
 
-ENTRYPOINT ["streamlit", "run"]
-CMD ["app.py"]
+# For running locally
+# CMD streamlit run app.py

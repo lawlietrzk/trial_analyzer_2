@@ -1,0 +1,16 @@
+-- Install heroku
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+--For the below login command, use email-id and API key
+heroku login -i
+
+--Create app
+heroku container:login
+heroku create resumeanalyzer
+
+--Push app to web
+heroku container:push web -a resumeanalyzer
+heroku container:release web -a resumeanalyzer
+
+--Open app in browser
+heroku open -a resumeanalyzer
