@@ -5,11 +5,9 @@ nltk.download('stopwords')
 spacy.load('en_core_web_sm')
 
 from pdf2image import convert_from_path
-import pandas as pd
-import base64, random
 import time, datetime
 from pyresparser import ResumeParser
-from pdfminer3.layout import LAParams, LTTextBox
+from pdfminer3.layout import LAParams
 from pdfminer3.pdfpage import PDFPage
 from pdfminer3.pdfinterp import PDFResourceManager
 from pdfminer3.pdfinterp import PDFPageInterpreter
@@ -17,10 +15,7 @@ from pdfminer3.converter import TextConverter
 import io, random
 from streamlit_tags import st_tags
 from PIL import Image
-import pymysql
 from Courses import ds_course, web_course, android_course, ios_course, uiux_course, resume_videos, interview_videos
-import plotly.express as px
-
 
 def pdf_reader(file):
     resource_manager = PDFResourceManager()
@@ -40,18 +35,7 @@ def pdf_reader(file):
     fake_file_handle.close()
     return text
 
-def generate_random_string(length=100):
-    import random
-    import string
-    return "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
-
-
-def show_pdf(file_path):
-    with open(file_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-
-    # Replace 'your_pdf_file.pdf' with the actual PDF filename
-    pdf_path = file_path
+def show_pdf(pdf_path):
 
     # Convert PDF pages to JPEG images
     images = convert_from_path(pdf_path)
@@ -106,7 +90,7 @@ def run():
     if pdf_file is not None:
         # with st.spinner('Uploading your Resume....'):
         #     time.sleep(4)
-        save_image_path = './Uploaded_Resumes/' + pdf_file.name
+        save_image_path = pdf_file.name
         with open(save_image_path, "wb") as f:
             f.write(pdf_file.getbuffer())
         show_pdf(save_image_path)

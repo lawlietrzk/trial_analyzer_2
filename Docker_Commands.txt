@@ -1,0 +1,6 @@
+--Run the commands below to start a Docker Container locally
+--First, go to Dockerfile and uncomment the last line, comment the second to last line
+--Then run the below commands
+
+docker build -t resumeanalyzer .
+docker run -d -p 8501:8501 resumeanalyzer

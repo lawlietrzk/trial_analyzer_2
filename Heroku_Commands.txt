@@ -1,7 +1,10 @@
--- Install heroku
+--Create account on heroku
+--Generate API Key 
+
+-- Install heroku cli
 curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
---For the below login command, use email-id and API key
+--Login to Heroku through heroku cli. For the below login command, use email-id and API key
 heroku login -i
 
 --Create app
