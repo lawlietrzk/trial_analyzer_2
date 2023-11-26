@@ -1,10 +1,6 @@
 import streamlit as st
 import nltk
 import spacy
-import sys
-import subprocess
-
-subprocess.run([f"{sys.executable}", "-m", "spacy", "download", "en_core_web_sm"])
 
 nltk.download('stopwords')
 spacy.load('en_core_web_sm')
