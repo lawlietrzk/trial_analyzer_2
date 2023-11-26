@@ -1,9 +1,9 @@
 import streamlit as st
-import nltk
-import spacy
+# import nltk
+# import spacy
 
-nltk.download('stopwords')
-spacy.load('en_core_web_sm')
+# nltk.download('stopwords')
+# spacy.load('en_core_web_sm')
 
 from pdf2image import convert_from_path
 import time, datetime
