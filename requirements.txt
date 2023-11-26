@@ -3,4 +3,6 @@ pyresparser==1.0.6
 streamlit==1.24.0
 streamlit-tags==1.2.8
 Pillow==9.5.0
+nltk==3.8.1
+spacy~=2.3.5
 pdf2image==1.16.3
